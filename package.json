@@ -1,0 +1,20 @@
+{
+  "name": "goy",
+  "version": "0.0.1",
+  "description": "a toy of js async flow control, inspire by goroutine and co",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asuka999/goy.git"
+  },
+  "keywords": [
+    "async",
+    "flow",
+    "routine"
+  ],
+  "author": "asuka999",
+  "license": "ISC"
+}
