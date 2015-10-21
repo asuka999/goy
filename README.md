@@ -1,22 +1,28 @@
 # goy
 a toy of js async flow control, inspire by goroutine and co
 
-## example
+## Specification
+- you must running node 0.12.0 or higher for generator support with the --harmony_generators or --harmony flag.
+- to use the params feature,  you must running node 0.12.0 or higher for des support --harmony_destructuring.
+- you can't pass the next in the same `tick`, cause generator can't call the next in the generator itself.
+
+
+## Example
 ```javascript
 //normal
-function streamData() {
+function streamData(stream) {
     return go(function*(next) {
-        req.pause();
+        stream.pause();
         var fileName = 'gen';
         var [exists] = yield fs.exists('tmp', next);
         if (!exists) {
             var [err] = yield fs.mkdir('tmp', next);
             throw err;
         }
-        req.resume()
+        stream.resume()
         var file = fs.createWriteStream('./tmp/gen');
-        var pipe = req.pipe(file);
-        yield req.on('end', next);
+        var pipe = stream.pipe(file);
+        yield stream.on('end', next);
         return true;
     }).then(function(rs) {
         console.log(rs);
@@ -35,6 +41,7 @@ go(function* test(next) {
         });
     }
     yield g.wait(next);
+    console.log("end")
 });
 
 //racegroup
@@ -47,6 +54,24 @@ go(function* test(next) {
         });
     }
     yield g.race(next);
+    console.log("end")
 })
 
 ```
+
+
+## API
+#### go 
+expect a `generator` as parameter which gets one argument (next) and the `go` function return a generator
+or no parameter and return a object of *asyncgroup*
+
+##### add 
+expect a `generator` like `go` 
+
+##### race 
+expect a function as parameter which you gets in go'parameter, more see example
+will call next when the asyncgroup's function first finish
+
+##### wait 
+like race
+will call next when the asyncgroup's function first finish

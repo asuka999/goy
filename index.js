@@ -29,8 +29,10 @@ function gor(fn) {
                     process.nextTick(next);
                 }
             },
+
         }
     }
+
     //private
     var next;
 
@@ -49,24 +51,3 @@ function gor(fn) {
 
 module.exports = gor;
 
-
-    // function streamData() {
-    //     return go(function*(next) {
-    //         req.pause();
-    //         var fileName = 'gen';
-    //         var [exists] = yield fs.exists('tmp', next);
-    //         if (!exists) {
-    //             var [err] = yield fs.mkdir('tmp', next);
-    //             throw err;
-    //         }
-    //         req.resume()
-    //         var file = fs.createWriteStream('./tmp/gen');
-    //         var pipe = req.pipe(file);
-    //         yield req.on('end', next);
-    //         return true;
-    //     }).then(function(rs){
-    //         console.log(rs);
-    //     }).then(go(function*() {
-    //         console.log("hahahh")
-    //     }));
-    // }
